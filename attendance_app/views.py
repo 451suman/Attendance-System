@@ -71,10 +71,10 @@ class AttendanceView(View):
                     else:
                         attendance.early_by = None
                 attendance.save()
-                login(self.request, user)
+                # login(self.request, user)
 
                 messages.success(request, "Attendance recorded successfully!")
-                return redirect("home")
+                return redirect("attendance")
             else:
                 messages.error(request, "Invalid form submission.")
                 return render(request, self.template_name, {"form": form})
