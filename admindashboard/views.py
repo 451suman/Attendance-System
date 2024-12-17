@@ -67,7 +67,7 @@ class AdminHomeView(AdminloginRequiredMixin, TemplateView):
 
     def get_context_data(self):
         context = super().get_context_data()
-        context["users"] = User.objects.filter(is_staff = False).order_by("-id")
+        context["users"] = User.objects.filter(is_staff = False).order_by("username")
         return context
 
 

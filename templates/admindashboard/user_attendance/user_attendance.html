@@ -14,11 +14,13 @@
             <th scope="col">Entry Time</th>
             <th scope="col">Late By</th>
             <th scope="col">Early By</th>
-            <th scope="col">is_delete</th>
+            <th scope="col">Is Delete</th>
         </tr>
     </thead>
     <tbody>
-        <h1>User Attendance</h1>
+        <center>
+            <h1>User Attendance</h1>
+        </center>
         {% if attendances %}
         {% for attendance in attendances %}
         <tr>
@@ -30,7 +32,16 @@
             <td>{{attendance.time}}</td>
             <td class="text-danger"> {{attendance.late_by|date:"H:i:s"|default:"NONE"}}</td>
             <td class="text-danger">{{attendance.early_by|date:"H:i:s"|default:"NONE"}}</td>
-            <td>{{attendance.is_delete}}</td>
+            <td>
+                {% if attendance.is_delete %}
+                <div class="text-danger">Attendance is Deleted</div>
+                <i class="bi bi-trash red-icon fs-3" style="color: red"></i>
+                {% else %}
+                <div class="text-success">NONE</div>
+                {% endif %}
+
+
+            </td>
 
 
         </tr>
@@ -38,7 +49,7 @@
         {% else %}
         <tr>
             <th scope="row" colspan="9">No records found</th>
-            
+
 
 
         </tr>

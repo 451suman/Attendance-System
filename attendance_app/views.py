@@ -60,7 +60,7 @@ class AttendanceView(View):
                         attendance.late_by = None
 
                 if direction == "Check Out":
-                    check_out_time = time(12, 0, 0)  # 6:00 PM
+                    check_out_time = time(18, 0, 0)  # 6:00 PM
                     check_out_datetime = datetime.combine(datetime.today(), check_out_time)
                     diff_check_out = check_out_datetime - current_datetime
 
