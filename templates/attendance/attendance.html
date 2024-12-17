@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="mt-4 font-1 text-body">
+<center><h1>    User Login & Submit Attendance.</h1></center>
+</div>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <center>        <input type="submit" class="btn btn-warning"name="" id="">
+        </center>
+    </form>
+{% endblock %}

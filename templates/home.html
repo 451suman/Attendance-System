@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>HOME PAGE</h1>
+
+
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">User Name</th>
+        <th scope="col">Choice</th>
+        <th scope="col">remarks</th>
+        <th scope="col">Time</th>
+        <th scope="col">Late By</th>
+        <th scope="col">Early By</th>
+        <th scope="col">Acrion</th>
+      </tr>
+    </thead>
+    <tbody>
+  {% for attendance in attendances %}
+      <tr>
+        <th scope="row">{{ forloop.counter }}</th>
+        <td>{{attendance.user.username}}</td>
+        <td>{{attendance.direction}}</td>
+        <td>{{attendance.remarks}}</td>
+        <td>{{attendance.time}}</td>
+        <td><p class="text-danger">{{attendance.late_by|date:"H:i:s" }}</p></td>
+        <td><p class="text-danger">{{attendance.early_by|date:"H:i:s" }}</p></td>
+        <td><a href="{% url 'delete' attendance.id %}" class="btn btn-warning">Delete</a></td>
+      </tr>
+      {% endfor %}
+     
+    </tbody>
+  </table>
+
+{% endblock %}
