@@ -1,0 +1,10 @@
+{% extends "admin/base.html"%}
+{% block content%}
+<h1>Welcome to the Admin Homepage</h1>
+{% if request.user.is_authenticated %}
+{{user.username}}
+{% endif %}
+<p>You are logged in as a superuser. </p>
+
+{% endblock content%}
+
