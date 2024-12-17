@@ -6,7 +6,6 @@ from admin_app.forms import AdminLoginForm
 
 
 class AdminLoginView(View):
-
     def get(self, request):
-        form = AdminLoginForm
-        return render(request, 'admin/authentication/login.html', {'form': form})
+        form = AdminLoginForm()
+        return render(request, "admin/authentication/login.html", {"form": form})

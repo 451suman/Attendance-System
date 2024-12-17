@@ -1,9 +1,6 @@
-
 from django.urls import path
 
 from attendance_app import views
+from .views import AdminLoginView
 
-urlpatterns = [
-    path("ad,o")
-
-]
+urlpatterns = [path("admin_dashboard/", AdminLoginView.as_view(), name="admin_app")]
