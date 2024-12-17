@@ -1,0 +1,49 @@
+{% extends "admindashboard/base.html" %}
+
+{% block title %} {% endblock %}
+{% block content %}
+
+<table class="table table-striped table-hover table-bordered text-center">
+    <thead>
+        <tr>
+            <th scope="col">SN</th>
+            <th scope="col">Username</th>
+            <th scope="col">Name</th>
+            <th scope="col">direction</th>
+            <th scope="col">remarks</th>
+            <th scope="col">Entry Time</th>
+            <th scope="col">Late By</th>
+            <th scope="col">Early By</th>
+            <th scope="col">is_delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        <h1>User Attendance</h1>
+        {% if attendances %}
+        {% for attendance in attendances %}
+        <tr>
+            <th scope="row">{{forloop.counter}}</th>
+            <td>{{attendance.user.username}}</td>
+            <td>{{attendance.first_name}} {{attendance.last_name}}</td>
+            <td>{{attendance.direction}}</td>
+            <td>{{attendance.remarks}}</td>
+            <td>{{attendance.time}}</td>
+            <td class="text-danger"> {{attendance.late_by|date:"H:i:s"|default:"NONE"}}</td>
+            <td class="text-danger">{{attendance.early_by|date:"H:i:s"|default:"NONE"}}</td>
+            <td>{{attendance.is_delete}}</td>
+
+
+        </tr>
+        {% endfor %}
+        {% else %}
+        <tr>
+            <th scope="row" colspan="9">No records found</th>
+            
+
+
+        </tr>
+        {% endif %}
+
+    </tbody>
+</table>
+{% endblock %}

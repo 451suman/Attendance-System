@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     "crispy_forms",
     "crispy_bootstrap5",
     "attendance_app",
-    "admin_app",
+    "admindashboard",
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
