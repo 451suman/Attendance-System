@@ -9,3 +9,7 @@ class AttendanceForm(forms.ModelForm):
         model = Attendance
         fields = [ "direction", "remarks" ]
 
+
+class UserLoginForm(forms.Form):
+    username = forms.CharField(max_length=100)
+    password = forms.CharField(max_length=100, widget=forms.PasswordInput)

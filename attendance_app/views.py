@@ -1,17 +1,55 @@
 from django.shortcuts import redirect, render, get_object_or_404
 from django.views import View
-from django.views.generic import TemplateView,UpdateView
+from django.views.generic import TemplateView,FormView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from attendance_app.forms import AttendanceForm
+from attendance_app.forms import AttendanceForm, UserLoginForm
 from attendance_app.models import Attendance
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login,logout
 from django.contrib import messages
-
+from django.urls import reverse_lazy
 from datetime import datetime, time, timedelta
 
 
-class HomeView(LoginRequiredMixin, TemplateView):
+class UserLoginView(FormView):
+    template_name = "registration/login.html"
+    form_class = UserLoginForm
+    success_url = reverse_lazy("home")
+
+    def form_valid(self, form):
+        username = form.cleaned_data["username"]
+        password = form.cleaned_data["password"]
+        user = authenticate(username =username, password= password)
+        if user is not None:
+            if user.is_superuser is False:
+                messages.success(self.request, "Login successfull")
+                login (self.request, user)
+            else:
+                messages.error(self.request, "you dont have permission to login")
+        else:
+            messages.error(self.request, "Login Unsuccessfull")
+
+        return super().form_valid(form)
+
+class UserLogoutView(View):
+    def get(self, request):
+        logout(request)
+        return redirect("user-login")
+
+
+class USERloginRequiredMixin(object):
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated and request.user.is_superuser is False:
+            pass
+        else:
+            return redirect('user-login')  
+
+        return super().dispatch(request, *args, **kwargs)
+
+
+
+
+class HomeView(USERloginRequiredMixin, TemplateView):
     template_name = "home.html"
 
     def get_context_data(self):
@@ -83,7 +121,7 @@ class AttendanceView(View):
             messages.error(request, "Username or password is incorrect.")
             return render(request, self.template_name, {"form": form})
 
-class DeleteAttendanceView(View):
+class DeleteAttendanceView(USERloginRequiredMixin, View):
     def get(self, request, id):
         print(id)
         delete_query = get_object_or_404(Attendance, id=id)

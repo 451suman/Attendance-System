@@ -4,12 +4,14 @@
 {% block content %}
 
 <div class="mt-4">
-    <center><h1>Login</h1></center>
+    <center>
+        <h1>Login</h1>
+    </center>
 </div>
 
-    <form action="{% url 'login' %}" method="post">
-        {% csrf_token %}
-        {{ form|crispy }}
-        <center>        <input type="submit" class="btn btn-warning" name="" id="">        </center>
-    </form>
+<form action="{% url 'user-login' %}" method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <center> <input type="submit" class="btn btn-warning" name="" id=""> </center>
+</form>
 {% endblock %}

@@ -2,8 +2,8 @@ from urllib import request
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import TemplateView, FormView,ListView
-from django.contrib.auth import authenticate, login
+from django.views.generic import TemplateView, FormView, ListView
+from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from admindashboard.forms import AdminLoginForm
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -35,12 +35,14 @@ class AdminLoginView(FormView):
                 login(self.request, usr)
                 return super().form_valid(form)  # Redirect to success URL
             else:
-                messages.error(self.request, "You dont have permission to access this website!")
+                messages.error(
+                    self.request, "You dont have permission to access this website!"
+                )
                 return render(
                     self.request,
                     self.template_name,
                     {"form": self.form_class, "error": "Invalid credentials"},
-            )
+                )
 
         else:
             messages.error(self.request, "Invalid username and password!")
@@ -51,15 +53,17 @@ class AdminLoginView(FormView):
                 {"form": self.form_class, "error": "Invalid credentials"},
             )
 
+
 class AdminloginRequiredMixin(object):
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated and request.user.is_superuser:
             pass
         else:
-            return redirect('a_app:admin-dashboard-login')  # Redirect to login page if not authorized
+            return redirect(
+                "a_app:admin-dashboard-login"
+            )  # Redirect to login page if not authorized
 
         return super().dispatch(request, *args, **kwargs)
-
 
 
 class AdminHomeView(AdminloginRequiredMixin, TemplateView):
@@ -67,20 +71,8 @@ class AdminHomeView(AdminloginRequiredMixin, TemplateView):
 
     def get_context_data(self):
         context = super().get_context_data()
-        context["users"] = User.objects.filter(is_staff = False).order_by("username")
+        context["users"] = User.objects.filter(is_staff=False).order_by("username")
         return context
-
-
-
-# class AttendanceListuser(ListView):
-#     template_name = "admindashboard/user_attendance/user_attendance.html"
-#     model = Attendance
-#     context_object_name = "attendances"
-
-#     def get_queryset(self, pk):
-#         queryset = super().get_queryset()
-#         queryset = queryset.objects.filter(user=pk).order_by("-id")
-#         return queryset
 
 
 class AttendanceListuser(View):
@@ -91,5 +83,10 @@ class AttendanceListuser(View):
         u_id = kwargs["pk"]
         print(u_id)
         attendances = Attendance.objects.filter(user=u_id).order_by("-time")
-        return render(request, self.template_name, {'attendances': attendances})
+        return render(request, self.template_name, {"attendances": attendances})
 
+
+class AdminLogoutView(View):
+    def get(self, request):
+        logout(request)
+        return redirect("a_app:admin-dashboard-login")
