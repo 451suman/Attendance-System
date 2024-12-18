@@ -1,0 +1,77 @@
+{% extends "admindashboard/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Add User
+{% endblock title %}
+
+{% block content %}
+    {% if form.errors %}
+        <div class="error-list">
+            {% for error in form.errors %}
+                <p>{{ error }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <div class="mt-4">
+        <center>
+            <h1>Admin Login</h1>
+        </center>
+    </div>
+
+    <form action="" method="post">
+        {% csrf_token %}
+
+        <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" class="form-control" name="username" id="username" aria-describedby="usernameHelp">
+            <div id="usernameHelp" class="form-text">
+                {{ form.username.errors }}
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="email" class="form-label">Email address</label>
+            <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp">
+            <div id="emailHelp" class="form-text">
+                {{ form.email.errors }}
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="first_name" class="form-label">First Name</label>
+            <input type="text" class="form-control" name="first_name" id="first_name" aria-describedby="firstNameHelp">
+            <div id="firstNameHelp" class="form-text">
+                {{ form.first_name.errors }}
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="last_name" class="form-label">Last Name</label>
+            <input type="text" class="form-control" name="last_name" id="last_name" aria-describedby="lastNameHelp">
+            <div id="lastNameHelp" class="form-text">
+                {{ form.last_name.errors }}
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="password1" class="form-label">Password</label>
+            <input type="password" class="form-control" name="password1" id="password1" aria-describedby="password1Help">
+            <div id="password1Help" class="form-text">
+                {{ form.password1.errors }}
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="password2" class="form-label">Confirm Password</label>
+            <input type="password" class="form-control" name="password2" id="password2" aria-describedby="password2Help">
+            <div id="password2Help" class="form-text">
+                {{ form.password2.errors }}
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Add user</button>
+    </form>
+
+{% endblock content %}

@@ -16,7 +16,7 @@
         </li>
         {% if request.user.is_authenticated and request.user.is_superuser %}
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{% url 'a_app:admin-dashboard-home' %}">Add User</a>
+          <a class="nav-link active" aria-current="page" href="{% url 'a_app:admin-dashboard-add-user' %}">Add User</a>
         </li>
         {% endif %}
       </ul>

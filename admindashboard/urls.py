@@ -8,4 +8,5 @@ urlpatterns = [
     path('admin-dashboard-logout/', views.AdminLogoutView.as_view(), name='admin-dashboard-logout'),
     path('admin-dashboard-home/', views.AdminHomeView.as_view(), name='admin-dashboard-home'),
     path("admin-dashboard-attendances/<int:pk>", views.AttendanceListuser.as_view(), name='admin-dashboard-attendances'),
+    path("admin-dashboard-add-user", views.AddUserView.as_view(), name='admin-dashboard-add-user'),
 ]

@@ -2,11 +2,12 @@ from urllib import request
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import TemplateView, FormView, ListView
+from django.views.generic import TemplateView, FormView, CreateView
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from admindashboard.forms import AdminLoginForm
+from admindashboard.forms import AdminLoginForm, UserAddForm
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.forms import UserCreationForm
 
 from attendance_app.models import Attendance
 from django.contrib.auth.models import User
@@ -86,7 +87,20 @@ class AttendanceListuser(View):
         return render(request, self.template_name, {"attendances": attendances})
 
 
+class AddUserView(CreateView):
+    model = User
+    form_class = UserAddForm
+    template_name ="admindashboard/createUser/create_user.html"
+    success_url = reverse_lazy("a_app:admin-dashboard-add-user")
+
+    def form_valid(self, form):
+        messages.success( self.request,"User added successfully")
+        return super().form_valid(form)
+
+
 class AdminLogoutView(View):
     def get(self, request):
         logout(request)
         return redirect("a_app:admin-dashboard-login")
+
+
