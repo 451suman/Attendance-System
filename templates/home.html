@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 
 {% block content %}
+
+
 <h1>HOME PAGE</h1>
 
 
@@ -26,12 +28,43 @@
       <td>{{attendance.remarks}}</td>
       <td>{{attendance.time}}</td>
       <td>
-        <p class="text-danger">{{attendance.late_by|date:"H:i:s" }}</p>
+        <p class="text-danger">{{attendance.late_by|date:"H:i:s"|default:None }}</p>
       </td>
       <td>
-        <p class="text-danger">{{attendance.early_by|date:"H:i:s" }}</p>
+        <p class="text-danger">{{attendance.early_by|date:"H:i:s"|default:None }}</p>
       </td>
-      <td><a href="{% url 'delete' attendance.id %}" class="btn btn-warning">Delete</a></td>
+      <!-- <td><a href="{ % url 'delete' attendance.id %}" class="btn btn-warning">Delete</a></td> -->
+      <td>
+        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#attendance_delete">
+          Delete
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="attendance_delete" tabindex="-1" aria-labelledby="exampleModalLabel"
+          aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                Are you sure you want to delete this attendance? <br>
+                <ul class="text-danger">
+                  <li>{{attendance.direction}}</li>
+                  <li>Late By: {{attendance.late_by|date:"H:i:s"|default:None }}</li>
+                  <li>Early By: {{attendance.early_by|date:"H:i:s"|default:None }}</li>
+                </ul>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <a href="{% url 'delete' attendance.id %}" class="btn btn-warning">Delete</a>
+                <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </td>
     </tr>
     {% endfor %}
 
