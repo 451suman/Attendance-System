@@ -11,12 +11,12 @@
     <tr>
       <th scope="col">#</th>
       <th scope="col">User Name</th>
-      <th scope="col">Choice</th>
-      <th scope="col">remarks</th>
+      <th scope="col">Direction Status</th>
+      <th scope="col">Remarks</th>
       <th scope="col">Time</th>
       <th scope="col">Late By</th>
       <th scope="col">Early By</th>
-      <th scope="col">Acrion</th>
+      <th scope="col">Action</th>
     </tr>
   </thead>
   <tbody>
@@ -28,10 +28,10 @@
       <td>{{attendance.remarks}}</td>
       <td>{{attendance.time}}</td>
       <td>
-        <p class="text-danger">{{attendance.late_by|date:"H:i:s"|default:None }}</p>
+        <p class="text-danger">{{attendance.late_time|date:"H:i:s"|default:None }}</p>
       </td>
       <td>
-        <p class="text-danger">{{attendance.early_by|date:"H:i:s"|default:None }}</p>
+        <p class="text-danger">{{attendance.early_time|date:"H:i:s"|default:None }}</p>
       </td>
       <!-- <td><a href="{ % url 'delete' attendance.id %}" class="btn btn-warning">Delete</a></td> -->
       <td>
@@ -52,8 +52,8 @@
                 Are you sure you want to delete this attendance? <br>
                 <ul class="text-danger">
                   <li>{{attendance.direction}}</li>
-                  <li>Late By: {{attendance.late_by|date:"H:i:s"|default:None }}</li>
-                  <li>Early By: {{attendance.early_by|date:"H:i:s"|default:None }}</li>
+                  <li>Late By: {{attendance.late_time|date:"H:i:s"|default:None }}</li>
+                  <li>Early By: {{attendance.early_time|date:"H:i:s"|default:None }}</li>
                 </ul>
               </div>
               <div class="modal-footer">

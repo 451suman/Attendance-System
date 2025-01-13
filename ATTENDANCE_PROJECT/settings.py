@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     "admindashboard",
     "jwt_authentication_api",
     "attendance_app_api",
+    "admin_dash_api",
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"

@@ -1,13 +1,15 @@
 from django.urls import include, path
 from rest_framework import routers
-from attendance_app_api import views
+
+from admin_dash_api import views
 
 router = routers.DefaultRouter()
-# rou ter.register(r'user-attendance', views.UserAttendanceViewSet)
+# router.register(r'users-list', views.ListUserViewSet)
+
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
-    path("", include(router.urls)),
-    path("user-attendance", views.UserAttendanceViewSet.as_view()),
+    path('', include(router.urls)),
+    path("user-list/", views.ListUserViewSet.as_view(), name='api-admin-user-list'),
 ]
